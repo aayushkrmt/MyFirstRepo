@@ -1,7 +1,6 @@
 ---
 
-- hosts: dev
-  connection: ssh
+- hosts: localhost
 
   tasks:
     - name: installing webserver
