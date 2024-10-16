@@ -1,0 +1,44 @@
+pipeline { 
+    agent any 
+    environment {
+        git_repo_url = 'https://github.com/satishflm/MyFirstRepo.git'
+        git_branch = 'master'
+        ansible_playbook = 'ansible.yml'
+    }
+    stages {
+        stage ('Clone Git Repository') {
+            steps {
+                script {
+                    git branch: "${git_branch}", url: "${git_repo_url}"
+                }
+            }
+        }
+        stage('Install Ansible') {
+            steps {
+                script {
+                    sh '''
+                    sudo yum install python-pip -y
+                    sudo amazon-linux-extras install ansible2 -y
+                    '''
+                }
+            }
+        }
+        stage('Run Ansible Playbook') {
+            steps {
+                script {
+                    sh '''
+                    ansible-playbook --become ${ansible_playbook}
+                    '''
+                }
+            }
+        }
+    }
+    post {
+        success {
+            echo 'Pipeline executed successfully.'
+        }
+        failure {
+            echo 'Pipeline failed'
+        }
+    }
+}
