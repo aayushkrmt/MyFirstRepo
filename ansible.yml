@@ -1,0 +1,26 @@
+---
+- hosts: localhost
+
+  tasks:
+    - name: Fetch JSON data from government API
+      ansible.builtin.uri:
+        url: https://api.data.gov/ed/collegescorecard/v1/schools.json?api_key=x8kLltwpwX8pos1ygof89rGH5axzruRR8sIY310t&per_page=1
+        dest: "/root/"
+        return_content: yes
+        headers:
+          Accept: "application/json"
+          Access-Control-Allow-Credentials: "true"
+        timeout: 60
+      delegate_to: localhost
+      register: api_response
+
+    - name: Save JSON response to a file
+      ansible.builtin.copy:
+        content: "{{ api_response.content }}"
+        dest: "/root/output.json"
+      when: api_response is not none
+
+    - name: Display JSON response
+      debug:
+        var: api_response.json
+...
