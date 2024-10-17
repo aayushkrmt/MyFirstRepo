@@ -23,4 +23,4 @@
 
     - name: Display working_not_enrolled overall_count
       debug:
-        msg: "working_not_enrolled overall_count: {{ parsed_response.highest['2_yr'].working_not_enrolled.overall_count }}"
+        msg: "working_not_enrolled overall_count: {{ parsed_response.results[0].highest['2_yr'].working_not_enrolled.overall_count }}"
