@@ -8,7 +8,7 @@ pipeline {
             steps {
                 script {
                     // The repository and branch details are managed by SCM, no need to clone here
-                    git url: 'https://github.com/aayushkrmt/MyFirstRepo.git', branch: 'main', credentialsId: '418825f6-7273-430d-983a-4740958949de'
+                    git url: 'https://github.com/aayushkrmt/MyFirstRepo.git', branch: 'master', credentialsId: '1cdc3b6a-b0d8-4f91-9490-2668cc5251e6'
                 }
             }
         }
