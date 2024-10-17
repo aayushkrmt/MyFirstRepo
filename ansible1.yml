@@ -19,7 +19,7 @@
 
     - name: Parse JSON response
       ansible.builtin.set_fact:
-        parsed_response: "{{ api_response.json | from_json }}"
+        parsed_response: "{{ api_response.content | from_json }}"
 
     - name: Display working_not_enrolled overall_count
       debug:
