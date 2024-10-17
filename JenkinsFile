@@ -1,0 +1,43 @@
+pipeline {
+    agent any
+    environment {
+        ansible_playbook = 'ansible.yml'
+    }
+    stages {
+        stage ('Clone Git Repository') {
+            steps {
+                script {
+                    // The repository and branch details are managed by SCM, no need to clone here
+                    echo 'Repository already cloned by Jenkins Pipeline with SCM.'
+                }
+            }
+        }
+        stage('Install Ansible') {
+            steps {
+                script {
+                    sh '''
+                    sudo yum install python-pip -y
+                    sudo amazon-linux-extras install ansible2 -y
+                    '''
+                }
+            }
+        }
+        stage('Run Ansible Playbook') {
+            steps {
+                script {
+                    sh '''
+                    ansible-playbook --become ${ansible_playbook}
+                    '''
+                }
+            }
+        }
+    }
+    post {
+        success {
+            echo 'Pipeline executed successfully.'
+        }
+        failure {
+            echo 'Pipeline failed'
+        }
+    }
+}
