@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        ansible_playbook = 'ansible1.yml'
+        ansible_playbook = 'ansible.yml'
     }
     stages {
         stage ('Clone Git Repository') {
