@@ -20,8 +20,8 @@
         dest: "/root/output.json"
       when: api_response is not none
 
-    - name: Display JSON response
+    - name: Display communications_technology value
       debug:
-        var: api_response.json
+        msg: "Communications Technology Value: {{ api_response.json.results[0].latest.academics.program.bachelors.communications_technology }}"
 ...
 
